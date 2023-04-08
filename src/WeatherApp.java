@@ -15,24 +15,30 @@ public class WeatherApp extends JFrame implements ActionListener {
         setTitle("Weather App by Amarjot");
         setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(3, 2));
+        setLayout(new BorderLayout());
 
         // Create components
+        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         cityLabel = new JLabel("Enter city name:");
-        cityField = new JTextField();
-        tempLabel = new JLabel();
+        cityField = new JTextField(20);
         getTempButton = new JButton("Get temperature");
+        inputPanel.add(cityLabel);
+        inputPanel.add(cityField);
+        inputPanel.add(getTempButton);
+
+        JPanel outputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        tempLabel = new JLabel();
+        outputPanel.add(tempLabel);
 
         // Add components to window
-        add(cityLabel);
-        add(cityField);
-        add(tempLabel);
-        add(getTempButton);
+        add(inputPanel, BorderLayout.NORTH);
+        add(outputPanel, BorderLayout.CENTER);
 
         // Set up event listener
         getTempButton.addActionListener(this);
 
         // Display the window
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
