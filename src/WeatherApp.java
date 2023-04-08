@@ -12,8 +12,8 @@ public class WeatherApp extends JFrame implements ActionListener {
 
     public WeatherApp() {
         // Set up the window
-        setTitle("Weather App by Amarjot");
-        setSize(400, 200);
+        setTitle("Weather App");
+        setSize(600, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
