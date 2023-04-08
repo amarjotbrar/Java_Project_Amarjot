@@ -12,7 +12,7 @@ public class WeatherApp extends JFrame implements ActionListener {
 
     public WeatherApp() {
         // Set up the window
-        setTitle("Weather App");
+        setTitle("Weather App by Amarjot");
         setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(3, 2));

@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31973580-5052-41b3-b234-03ae2e336693" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WeatherApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/weatherapp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WeatherApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WeatherApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +25,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/amarjot/Github/weatherapp",
     "onboarding.tips.debug.path": "/home/amarjot/Github/Weather_Forecasting_App/weatherapp/src/Main.java"
   }
 }]]></component>
