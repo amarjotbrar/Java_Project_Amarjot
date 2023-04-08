@@ -6,31 +6,32 @@ import java.net.*;
 
 public class WeatherApp extends JFrame implements ActionListener {
 
-    private JLabel cityLabel, tempLabel;
-    private JTextField cityField;
-    private JButton getTempButton;
+    private JLabel cityLabel, tempLabel; // labels for enter city name and getting output temp
+    private JTextField cityField; // to take input from user for city name
+    private JButton getTempButton; // button to fetch temprature data from openWeather api
 
-    public WeatherApp() {
-        // Set up the window
+    public WeatherApp() { // container for JFrame
         setTitle("Weather App");
         setSize(600, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout()); // we are using BorderLayout as the layout of the frame
 
         // Create components
-        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // panel to place the label and button
         cityLabel = new JLabel("Enter city name:");
         cityField = new JTextField(20);
         getTempButton = new JButton("Get temperature");
+
+        // adding button and labels to the pannel
         inputPanel.add(cityLabel);
         inputPanel.add(cityField);
         inputPanel.add(getTempButton);
 
-        JPanel outputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        tempLabel = new JLabel();
-        outputPanel.add(tempLabel);
+        JPanel outputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // another panel to place the output label
+        tempLabel = new JLabel(); // label to output temprature
+        outputPanel.add(tempLabel); // output label added to output panel
 
-        // Add components to window
+        // Add components to window with berderlayout , we just have two panels that are placed in north and center of the frame
         add(inputPanel, BorderLayout.NORTH);
         add(outputPanel, BorderLayout.CENTER);
 
@@ -38,13 +39,14 @@ public class WeatherApp extends JFrame implements ActionListener {
         getTempButton.addActionListener(this);
 
         // Display the window
-        setLocationRelativeTo(null);
-        setVisible(true);
+        setLocationRelativeTo(null); // where to display the frame window, not relative to anything as null
+        setVisible(true); // to display the frame
     }
 
+    // this is used to define the action performed by the button
     public void actionPerformed(ActionEvent e) {
         // Get the city name from the text field
-        String city = cityField.getText();
+        String city = cityField.getText(); // the text taken from cityField is stored in the city string we created
 
         // Call the weather API to get the current temperature
         try {
@@ -82,12 +84,12 @@ public class WeatherApp extends JFrame implements ActionListener {
         int index = response.indexOf("\"temp\":");
         int end = response.indexOf(",", index);
         String tempString = response.substring(index + 7, end);
-        double temperature = Double.parseDouble(tempString) - 273.15;
+        double temperature = Double.parseDouble(tempString) - 273.15; // change from kelvin to celsius
         return temperature;
     }
 
     public static void main(String[] args) {
         // Create the weather app
-        WeatherApp app = new WeatherApp();
+        WeatherApp app = new WeatherApp(); // running the frame window
     }
 }
