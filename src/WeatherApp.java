@@ -6,7 +6,7 @@ import java.net.*;
 
 public class WeatherApp extends JFrame implements ActionListener {
 
-    private JLabel cityLabel, tempLabel; // labels for enter city name and getting output temp
+    private JLabel cityLabel, tempLabel ,descriptionLabel;   // labels for enter city name and getting output temp
     private JTextField cityField; // to take input from user for city name
     private JButton getTempButton; // button to fetch temprature data from openWeather api
 
@@ -20,7 +20,7 @@ public class WeatherApp extends JFrame implements ActionListener {
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // panel to place the label and button
         cityLabel = new JLabel("Enter city name:");
         cityField = new JTextField(20);
-        getTempButton = new JButton("Get temperature");
+        getTempButton = new JButton("Get Details");
 
         // adding button and labels to the pannel
         inputPanel.add(cityLabel);
@@ -31,9 +31,14 @@ public class WeatherApp extends JFrame implements ActionListener {
         tempLabel = new JLabel(); // label to output temprature
         outputPanel.add(tempLabel); // output label added to output panel
 
+        JPanel descriptionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10 )); // panel to get descriptoiin
+        descriptionLabel = new JLabel();
+        descriptionPanel.add(descriptionLabel);
+
         // Add components to window with berderlayout , we just have two panels that are placed in north and center of the frame
         add(inputPanel, BorderLayout.NORTH);
         add(outputPanel, BorderLayout.CENTER);
+        add(descriptionPanel, BorderLayout.SOUTH);
 
         // Set up event listener
         getTempButton.addActionListener(this);
@@ -69,13 +74,24 @@ public class WeatherApp extends JFrame implements ActionListener {
 
             // Parse the response to get the temperature
             double temperature = parseResponse(response.toString());
+            String descriptoin = getdescription(response.toString());
+
+            // i want to get other data
+            System.out.println("\n\n"+response.toString()+"\n\n");
+
+
+
 
             // Display the temperature to the user
             tempLabel.setText(String.format("The temperature in %s is %.1f degrees Celsius.", city, temperature));
 
+            descriptionLabel.setText(String.format("Description: %s",descriptoin));
+
+
+
         } catch (Exception ex) {
             // Display error message if there was an issue with the API call
-            tempLabel.setText("Error: " + ex.getMessage());
+            tempLabel.setText("Error: " + ex.getMessage() +"\nPlease enter a valid city name.");
         }
     }
 
@@ -86,6 +102,13 @@ public class WeatherApp extends JFrame implements ActionListener {
         String tempString = response.substring(index + 7, end);
         double temperature = Double.parseDouble(tempString) - 273.15; // change from kelvin to celsius
         return temperature;
+    }
+
+    private String getdescription(String response){
+        int index = response.indexOf("\"description\":");
+        int end = response.indexOf(",",index);
+        String descriptionString = response.substring(index + 15,end-1);
+        return descriptionString;
     }
 
     public static void main(String[] args) {
