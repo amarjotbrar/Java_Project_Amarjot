@@ -112,14 +112,15 @@ public class WeatherApp extends JFrame implements ActionListener {
 
 
         } catch (Exception ex) {
-            // Display error message if there was an issue with the API call
-            if(city.equals(""))
+            // display message if input is empty
+            if(city.equals("")||city.equals(" "))
             {
                 tempLabel.setText("City name can't be empty.");
                 descriptionLabel.setText(" ");
                 HumidityLabel.setText(" ");
                 feelsLikeLabel.setText(" ");
             }
+            // Display error message if there was an issue with the API call
             else {
                 tempLabel.setText("Please enter a valid city name.");
                 descriptionLabel.setText(" ");
