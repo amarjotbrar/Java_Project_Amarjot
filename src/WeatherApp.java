@@ -107,6 +107,8 @@ public class WeatherApp extends JFrame implements ActionListener {
             // Display error message if there was an issue with the API call
             tempLabel.setText("Please enter a valid city name.");
             descriptionLabel.setText(" ");
+            HumidityLabel.setText(" ");
+            feelsLikeLabel.setText(" ");
         }
     }
 
