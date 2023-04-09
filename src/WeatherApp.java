@@ -6,15 +6,15 @@ import java.net.*;
 
 public class WeatherApp extends JFrame implements ActionListener {
 
-    private JLabel cityLabel, tempLabel ,descriptionLabel;   // labels for enter city name and getting output temp
+    private JLabel cityLabel, tempLabel ,descriptionLabel, feelsLikeLabel, HumidityLabel;   // labels for enter city name and getting output temp
     private JTextField cityField; // to take input from user for city name
     private JButton getTempButton; // button to fetch temprature data from openWeather api
 
     public WeatherApp() { // container for JFrame
         setTitle("Weather App");
-        setSize(600, 150);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout()); // we are using BorderLayout as the layout of the frame
+        setLayout(new GridLayout(5,1,2,2)); // we are using BorderLayout as the layout of the frame
 
         // Create components
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // panel to place the label and button
@@ -35,10 +35,20 @@ public class WeatherApp extends JFrame implements ActionListener {
         descriptionLabel = new JLabel();
         descriptionPanel.add(descriptionLabel);
 
+        JPanel feelsLikePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40,10));
+        feelsLikeLabel = new JLabel();
+        feelsLikePanel.add(feelsLikeLabel);
+
+        JPanel HumidityPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,10));
+        HumidityLabel = new JLabel();
+        HumidityPanel.add(HumidityLabel);
+
         // Add components to window with berderlayout , we just have two panels that are placed in north and center of the frame
-        add(inputPanel, BorderLayout.NORTH);
-        add(outputPanel, BorderLayout.CENTER);
-        add(descriptionPanel, BorderLayout.SOUTH);
+        add(inputPanel);
+        add(outputPanel);
+        add(feelsLikePanel);
+        add(HumidityPanel);
+        add(descriptionPanel);
 
         // Set up event listener
         getTempButton.addActionListener(this);
@@ -47,6 +57,7 @@ public class WeatherApp extends JFrame implements ActionListener {
         setLocationRelativeTo(null); // where to display the frame window, not relative to anything as null
         setVisible(true); // to display the frame
     }
+
 
     // this is used to define the action performed by the button
     public void actionPerformed(ActionEvent e) {
@@ -72,26 +83,30 @@ public class WeatherApp extends JFrame implements ActionListener {
             }
             in.close();
 
-            // Parse the response to get the temperature
+            // Parse the response to get details of different parameters
             double temperature = parseResponse(response.toString());
             String descriptoin = getdescription(response.toString());
-
-            // i want to get other data
-            System.out.println("\n\n"+response.toString()+"\n\n");
-
+            String Humidity = getHumidity(response.toString());
+            double feelsLike = feelsLike(response.toString());
 
 
 
-            // Display the temperature to the user
+            // to display all data of api in the terminal
+            //System.out.println("\n\n"+response.toString()+"\n\n");
+
+
+            // adding value to different labels
             tempLabel.setText(String.format("The temperature in %s is %.1f degrees Celsius.", city, temperature));
-
             descriptionLabel.setText(String.format("Description: %s",descriptoin));
+            feelsLikeLabel.setText(String.format("Feels Like: %.1f",feelsLike));
+            HumidityLabel.setText(("Humidity: "+ Humidity +"%"));
 
 
 
         } catch (Exception ex) {
             // Display error message if there was an issue with the API call
-            tempLabel.setText("Error: " + ex.getMessage() +"\nPlease enter a valid city name.");
+            tempLabel.setText("Please enter a valid city name.");
+            descriptionLabel.setText(" ");
         }
     }
 
@@ -104,6 +119,14 @@ public class WeatherApp extends JFrame implements ActionListener {
         return temperature;
     }
 
+    private double feelsLike(String response){
+        int index = response.indexOf("\"feels_like\":");
+        int end = response.indexOf(",",index);
+        String tempString = response.substring(index + 13, end);
+        double feelslike = Double.parseDouble(tempString) - 273.15;
+        return feelslike;
+    }
+
     private String getdescription(String response){
         int index = response.indexOf("\"description\":");
         int end = response.indexOf(",",index);
@@ -111,6 +134,14 @@ public class WeatherApp extends JFrame implements ActionListener {
         return descriptionString;
     }
 
+    private String getHumidity(String response){
+        int index = response.indexOf("\"humidity\":");
+        int end = response.indexOf(",",index);
+        String humidity = response.substring(index + 11,end);
+        return humidity;
+    }
+
+    // main function
     public static void main(String[] args) {
         // Create the weather app
         WeatherApp app = new WeatherApp(); // running the frame window
