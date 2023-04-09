@@ -12,15 +12,18 @@ public class WeatherApp extends JFrame implements ActionListener {
 
     public WeatherApp() { // container for JFrame
         setTitle("Weather App");
-        setSize(600, 400);
+        setSize(1200, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(5,1,2,2)); // we are using BorderLayout as the layout of the frame
 
         // Create components
-        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // panel to place the label and button
+        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20)); // panel to place the label and button
         cityLabel = new JLabel("Enter city name:");
-        cityField = new JTextField(20);
+        cityLabel.setFont(new Font("Century Gothic", Font.BOLD,30));
+        cityField = new JTextField(10);
+        cityField.setFont(new Font("Century Gothic", Font.PLAIN, 30));
         getTempButton = new JButton("Get Details");
+        getTempButton.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
         // adding button and labels to the pannel
         inputPanel.add(cityLabel);
@@ -29,18 +32,22 @@ public class WeatherApp extends JFrame implements ActionListener {
 
         JPanel outputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10)); // another panel to place the output label
         tempLabel = new JLabel(); // label to output temprature
+        tempLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
         outputPanel.add(tempLabel); // output label added to output panel
 
         JPanel descriptionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10 )); // panel to get descriptoiin
         descriptionLabel = new JLabel();
+        descriptionLabel.setFont(new Font("Century Gothic", Font.BOLD,25));
         descriptionPanel.add(descriptionLabel);
 
         JPanel feelsLikePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40,10));
         feelsLikeLabel = new JLabel();
+        feelsLikeLabel.setFont(new Font("Century Gothic", Font.BOLD, 25));
         feelsLikePanel.add(feelsLikeLabel);
 
         JPanel HumidityPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,10));
         HumidityLabel = new JLabel();
+        HumidityLabel.setFont(new Font("Century Gothic", Font.BOLD,25));
         HumidityPanel.add(HumidityLabel);
 
         // Add components to window with berderlayout , we just have two panels that are placed in north and center of the frame
@@ -87,6 +94,7 @@ public class WeatherApp extends JFrame implements ActionListener {
             double temperature = parseResponse(response.toString());
             String descriptoin = getdescription(response.toString());
             String Humidity = getHumidity(response.toString());
+            Humidity = Humidity.replaceAll("}"," ");
             double feelsLike = feelsLike(response.toString());
 
 
@@ -96,19 +104,28 @@ public class WeatherApp extends JFrame implements ActionListener {
 
 
             // adding value to different labels
-            tempLabel.setText(String.format("The temperature in %s is %.1f degrees Celsius.", city, temperature));
+            tempLabel.setText(String.format("The temperature in %s is %.1f\t° Celsius.", city, temperature));
             descriptionLabel.setText(String.format("Description: %s",descriptoin));
-            feelsLikeLabel.setText(String.format("Feels Like: %.1f",feelsLike));
+            feelsLikeLabel.setText(String.format("Feels Like: %.1f\t° C",feelsLike));
             HumidityLabel.setText(("Humidity: "+ Humidity +"%"));
 
 
 
         } catch (Exception ex) {
             // Display error message if there was an issue with the API call
-            tempLabel.setText("Please enter a valid city name.");
-            descriptionLabel.setText(" ");
-            HumidityLabel.setText(" ");
-            feelsLikeLabel.setText(" ");
+            if(city.equals(""))
+            {
+                tempLabel.setText("City name can't be empty.");
+                descriptionLabel.setText(" ");
+                HumidityLabel.setText(" ");
+                feelsLikeLabel.setText(" ");
+            }
+            else {
+                tempLabel.setText("Please enter a valid city name.");
+                descriptionLabel.setText(" ");
+                HumidityLabel.setText(" ");
+                feelsLikeLabel.setText(" ");
+            }
         }
     }
 
