@@ -18,7 +18,7 @@ public class WeatherApp extends JFrame implements ActionListener {
 
         // Create components
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20)); // panel to place the label and button
-        cityLabel = new JLabel("Enter city name:");
+        cityLabel = new JLabel("Enter city/country name:");
         cityLabel.setFont(new Font("Century Gothic", Font.BOLD,30));
         cityField = new JTextField(10);
         cityField.setFont(new Font("Century Gothic", Font.PLAIN, 30));
@@ -65,15 +65,14 @@ public class WeatherApp extends JFrame implements ActionListener {
         setVisible(true); // to display the frame
     }
 
-
     // this is used to define the action performed by the button
     public void actionPerformed(ActionEvent e) {
         // Get the city name from the text field
         String city = cityField.getText(); // the text taken from cityField is stored in the city string we created
 
-        // Call the weather API to get the current temperature
+        // Call the weather API to get the details
         try {
-            // API endpoint and API key
+            // API endpoint and API key, city is the query which changes on cityname and gets the details
             String apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=dc41c702477dd1a8c5d5c918cabec124";
 
             // Create connection to API endpoint
@@ -98,9 +97,9 @@ public class WeatherApp extends JFrame implements ActionListener {
             double feelsLike = feelsLike(response.toString());
 
 
-
             // to display all data of api in the terminal
-            //System.out.println("\n\n"+response.toString()+"\n\n");
+            System.out.println("\n\n"+response.toString()+"\n\n");
+            System.out.println("\n"+response.getClass()+"\n");
 
 
             // adding value to different labels
