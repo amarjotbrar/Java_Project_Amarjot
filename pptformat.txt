@@ -1,0 +1,8 @@
+Contents of the ppt: 
+
+1. title
+2. indroduction
+3. why this topic?
+4. Advantages and disadvantages of your project (features/ the things that are not yet implemented)
+5. Algorithm (no code/ flow control)
+6. Results (Screenshots)
