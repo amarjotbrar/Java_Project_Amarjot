@@ -6,17 +6,22 @@ import java.net.*;
 
 public class WeatherApp extends JFrame implements ActionListener {
 
-    private JLabel cityLabel, tempLabel ,descriptionLabel, feelsLikeLabel, HumidityLabel;   // labels for enter city name and getting output temp
+    private JLabel cityLabel, tempLabel ,descriptionLabel, feelsLikeLabel, HumidityLabel, nameLabel;   // labels for enter city name and getting output temp
     private JTextField cityField; // to take input from user for city name
     private JButton getTempButton; // button to fetch temprature data from openWeather api
 
     public WeatherApp() { // container for JFrame
         setTitle("Weather App");
-        setSize(1200, 600);
+        setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(5,1,2,2)); // we are using BorderLayout as the layout of the frame
+        setLayout(new GridLayout(6,1,2,2)); // we are using BorderLayout as the layout of the frame
 
         // Create components
+        JPanel HeadingPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,30));
+        nameLabel = new JLabel(("Weather App"));
+        nameLabel.setFont(new Font("Century Gothic",Font.BOLD, 60));
+        HeadingPanel.add(nameLabel);
+
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20)); // panel to place the label and button
         cityLabel = new JLabel("Enter city/country name:");
         cityLabel.setFont(new Font("Century Gothic", Font.BOLD,30));
@@ -51,6 +56,7 @@ public class WeatherApp extends JFrame implements ActionListener {
         HumidityPanel.add(HumidityLabel);
 
         // Add components to window with berderlayout , we just have two panels that are placed in north and center of the frame
+        add(HeadingPanel);
         add(inputPanel);
         add(outputPanel);
         add(feelsLikePanel);
