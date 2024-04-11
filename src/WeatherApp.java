@@ -82,7 +82,8 @@ public class WeatherApp extends JFrame implements ActionListener {
             String apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=dc41c702477dd1a8c5d5c918cabec124";
 
             // Create connection to API endpoint
-            URL url = new URL(apiUrl);
+            URI uri = URI.create(apiUrl);
+            URL url = uri.toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
@@ -169,6 +170,6 @@ public class WeatherApp extends JFrame implements ActionListener {
     // main function
     public static void main(String[] args) {
         // Create the weather app
-        WeatherApp app = new WeatherApp(); // running the frame window
+        new WeatherApp().setVisible(true);; // running the frame window
     }
 }
