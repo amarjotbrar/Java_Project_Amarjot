@@ -1,4 +1,1 @@
-# Weather_Forecasting_App_Java
-CSE310 Project
-
-1. the main program in in src directory
+The main program in in src directory
